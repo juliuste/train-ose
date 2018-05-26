@@ -1,5 +1,5 @@
 {
-	"name": "trainOSE",
+	"name": "train-ose",
 	"description": "Client for the Greek trainOSE railway API.",
 	"version": "0.0.0",
 	"keywords": [
@@ -14,9 +14,9 @@
 		"europe"
 	],
 	"author": "Julius Tens <mail@juliustens.eu>",
-	"homepage": "https://github.com/juliuste/trainOSE",
-	"repository": "juliuste/trainOSE",
-	"bugs": "https://github.com/juliuste/trainOSE/issues",
+	"homepage": "https://github.com/juliuste/train-ose",
+	"repository": "juliuste/train-ose",
+	"bugs": "https://github.com/juliuste/train-ose/issues",
 	"main": "./index.js",
 	"files": [
 		"index.js",

@@ -3,7 +3,7 @@
 Get a list of all stations. Returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/promise) that will resolve in an array of `station`s in the [*Friendly Public Transport Format*](https://github.com/public-transport/friendly-public-transport-format).
 
 ```js
-const trainOSE = require('trainOSE')
+const trainOSE = require('train-ose')
 
 trainOSE.stations()
 .then(console.log)

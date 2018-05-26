@@ -26,7 +26,7 @@ const athens = {
 
 const thessaloniki = 'ΘΕΣΣ'
 
-const trainOSE = require('trainOSE')
+const trainOSE = require('train-ose')
 
 trainOSE.journeys(thessaloniki, athens, new Date())
 .then(console.log)

@@ -7,7 +7,7 @@ const isNumber = require('lodash.isnumber')
 const moment = require('moment-timezone')
 const trainOSE = require('./index')
 
-tape('trainOSE.stations & trainOSE.edges', async (t) => {
+tape('train-ose.stations & train-ose.edges', async (t) => {
 	const s = await trainOSE.stations()
 	t.ok(s.length > 30, 'stations length')
 
@@ -46,7 +46,7 @@ tape('trainOSE.stations & trainOSE.edges', async (t) => {
 	t.end()
 })
 
-tape('trainOSE.journeys', async (t) => {
+tape('train-ose.journeys', async (t) => {
 	const j = await trainOSE.journeys('ΑΘΗΝ', 'ΘΕΣΣ', moment.tz('Europe/Athens').add(3, 'days').startOf('day').toDate())
 
 	t.ok(j.length > 0, 'journeys length')

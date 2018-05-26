@@ -3,7 +3,7 @@
 Get a list of pairs of connected stations and their distance (**undirected** edges). Returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/promise) that will resolve in an array that looks as follows:
 
 ```js
-const trainOSE = require('trainOSE')
+const trainOSE = require('train-ose')
 
 trainOSE.edges()
 .then(console.log)
