@@ -4,7 +4,7 @@ Get directions for routes from A to B. Returns a [Promise](https://developer.moz
 
 `origin` and `destination` must be `station` objects or ids (use the [`stations`](stations.md) method to get this information).
 
-`date` must be a JS `Date` object.
+`date` must be a JS `Date` object. The method returns results for the entire calendar day of the given date in `Europe/Athens` timezone.
 
 ## Example
 
