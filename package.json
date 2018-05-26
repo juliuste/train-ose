@@ -1,0 +1,50 @@
+{
+	"name": "trainOSE",
+	"description": "Client for the Greek trainOSE railway API.",
+	"version": "0.0.0",
+	"keywords": [
+		"trainOSE",
+		"train",
+		"OSE",
+		"greece",
+		"greek",
+		"railway",
+		"fptf",
+		"rail",
+		"europe"
+	],
+	"author": "Julius Tens <mail@juliustens.eu>",
+	"homepage": "https://github.com/juliuste/trainOSE",
+	"repository": "juliuste/trainOSE",
+	"bugs": "https://github.com/juliuste/trainOSE/issues",
+	"main": "./index.js",
+	"files": [
+		"index.js",
+		"lib/*"
+	],
+	"dependencies": {
+		"country-tz": "^1.0.0",
+		"got": "^8.3.1",
+		"i18n-iso-countries": "^3.6.3",
+		"lodash.isdate": "^4.0.1",
+		"lodash.isobject": "^3.0.2",
+		"lodash.isstring": "^4.0.1",
+		"lodash.minby": "^4.6.0",
+		"lodash.sumby": "^4.6.0",
+		"moment-timezone": "^0.5.17"
+	},
+	"devDependencies": {
+		"lodash.isboolean": "^3.0.3",
+		"lodash.isnumber": "^3.0.3",
+		"tape": "^4.9.0",
+		"validate-fptf": "^2.0.1"
+	},
+	"scripts": {
+		"test": "node test.js",
+		"prepare": "npm test"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"license": "ISC"
+}
