@@ -24,20 +24,14 @@
 	],
 	"dependencies": {
 		"country-tz": "^1.0.0",
-		"got": "^9.0.0",
-		"i18n-iso-countries": "^3.6.3",
-		"lodash.isdate": "^4.0.1",
-		"lodash.isobject": "^3.0.2",
-		"lodash.isstring": "^4.0.1",
-		"lodash.minby": "^4.6.0",
-		"lodash.sumby": "^4.6.0",
-		"moment-timezone": "^0.5.17"
+		"got": "^9.1.0",
+		"i18n-iso-countries": "^3.7.4",
+		"lodash": "^4.17.10",
+		"moment-timezone": "^0.5.21"
 	},
 	"devDependencies": {
-		"lodash.isboolean": "^3.0.3",
-		"lodash.isnumber": "^3.0.3",
-		"tape": "^4.9.0",
-		"validate-fptf": "^2.0.1"
+		"tape": "^4.9.1",
+		"validate-fptf": "^2.1.1"
 	},
 	"scripts": {
 		"test": "node test.js",

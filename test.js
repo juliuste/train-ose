@@ -2,8 +2,8 @@
 
 const tape = require('tape')
 const validate = require('validate-fptf')
-const isBoolean = require('lodash.isboolean')
-const isNumber = require('lodash.isnumber')
+const isBoolean = require('lodash/isBoolean')
+const isNumber = require('lodash/isNumber')
 const moment = require('moment-timezone')
 const trainOSE = require('./index')
 
