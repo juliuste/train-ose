@@ -1,27 +1,34 @@
 {
 	"name": "train-ose",
-	"description": "Client for the Greek trainOSE railway API.",
 	"version": "0.0.0",
+	"description": "Client for the Greek trainOSE railway API.",
 	"keywords": [
-		"trainOSE",
-		"train",
 		"OSE",
+		"europe",
+		"fptf",
 		"greece",
 		"greek",
-		"railway",
-		"fptf",
 		"rail",
-		"europe"
+		"railway",
+		"train",
+		"trainOSE"
 	],
-	"author": "Julius Tens <mail@juliustens.eu>",
 	"homepage": "https://github.com/juliuste/train-ose",
-	"repository": "juliuste/train-ose",
 	"bugs": "https://github.com/juliuste/train-ose/issues",
-	"main": "./index.js",
+	"repository": "juliuste/train-ose",
+	"license": "ISC",
+	"author": "Julius Tens <mail@juliustens.eu>",
 	"files": [
-		"index.js",
 		"lib/*"
 	],
+	"main": "lib/index.js",
+	"scripts": {
+		"check-deps": "depcheck",
+		"fix": "eslint --fix lib",
+		"lint": "eslint lib",
+		"prepublishOnly": "npm test",
+		"test": "npm run lint && npm run check-deps && node test"
+	},
 	"dependencies": {
 		"country-tz": "^1.0.0",
 		"got": "^9.1.0",
@@ -30,15 +37,17 @@
 		"moment-timezone": "^0.5.21"
 	},
 	"devDependencies": {
+		"depcheck": "^0.6.11",
+		"eslint": "^5.8.0",
+		"eslint-config-standard": "^12.0.0",
+		"eslint-plugin-import": "^2.14.0",
+		"eslint-plugin-node": "^8.0.0",
+		"eslint-plugin-promise": "^4.0.1",
+		"eslint-plugin-standard": "^4.0.0",
 		"tape": "^4.9.1",
 		"validate-fptf": "^2.1.1"
 	},
-	"scripts": {
-		"test": "node test.js",
-		"prepublishOnly": "npm test"
-	},
 	"engines": {
 		"node": ">=8"
-	},
-	"license": "ISC"
+	}
 }

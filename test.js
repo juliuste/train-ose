@@ -5,7 +5,7 @@ const validate = require('validate-fptf')
 const isBoolean = require('lodash/isBoolean')
 const isNumber = require('lodash/isNumber')
 const moment = require('moment-timezone')
-const trainOSE = require('./index')
+const trainOSE = require('.')
 
 tape('train-ose.stations & train-ose.edges', async (t) => {
 	const s = await trainOSE.stations()
