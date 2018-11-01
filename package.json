@@ -1,6 +1,6 @@
 {
 	"name": "train-ose",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Client for the Greek trainOSE railway API.",
 	"keywords": [
 		"OSE",
