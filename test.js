@@ -11,7 +11,7 @@ tape('train-ose.stations & train-ose.edges', async (t) => {
 	const s = await trainOSE.stations()
 	t.ok(s.length > 30, 'stations length')
 
-	for(let station of s) {
+	for (let station of s) {
 		validate(station)
 		t.ok(station.location.country.length === 2, 'station location country')
 		t.ok(station.location.timezone.length > 8, 'station location timezone')
@@ -55,7 +55,7 @@ tape('train-ose.journeys', async (t) => {
 		validate(journey)
 
 		t.ok(journey.legs[0].origin.id === 'ΑΘΗΝ', 'origin id')
-		t.ok(journey.legs[journey.legs.length-1].destination.id === 'ΘΕΣΣ', 'destination id')
+		t.ok(journey.legs[journey.legs.length - 1].destination.id === 'ΘΕΣΣ', 'destination id')
 
 		for (let l of journey.legs) {
 			t.ok(l.operator === 'trainOSE', 'leg operator')
