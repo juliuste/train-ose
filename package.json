@@ -32,7 +32,7 @@
 	"dependencies": {
 		"country-tz": "^1.0.0",
 		"got": "^9.1.0",
-		"i18n-iso-countries": "^3.7.4",
+		"i18n-iso-countries": "^4.0.0",
 		"lodash": "^4.17.10",
 		"moment-timezone": "^0.5.21"
 	},
