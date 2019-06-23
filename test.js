@@ -45,7 +45,7 @@ tape('train-ose.stations & train-ose.edges', async t => {
 	t.ok(athens.active === true, 'athens active')
 
 	// check edges
-	const edges = await trainOSE.edges()
+	const edges = await getStream(trainOSE.edges())
 	t.ok(edges.length > 30, 'edges length')
 
 	for (let edge of edges) {
