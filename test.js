@@ -121,7 +121,7 @@ tape('train-ose.journeys opt.transfers', async t => {
 	}
 })
 
-tape('korail.journeys opt.interval', async t => {
+tape('train-ose.journeys opt.interval', async t => {
 	const athens = 'ΑΘΗΝ'
 	const drama = 'ΔΡΑΜ'
 	const dayAfterWhen = DateTime.fromJSDate(when, { zone: 'Europe/Athens' }).plus({ days: 1 }).toJSDate()
