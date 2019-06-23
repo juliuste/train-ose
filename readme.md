@@ -207,8 +207,6 @@ trainOSE.journeys(athens, thessaloniki, { when: new Date('2019-06-27T05:00:00+02
 
 ---
 
----
-
 ### `edges()`
 
 All pairs of adjacent stations and their distance (as in *edges* of the greek railway network graph). Returns a `Readable` stream in object mode.
