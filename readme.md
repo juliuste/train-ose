@@ -5,7 +5,6 @@ JavaScript client for the Greek 🇬🇷 [trainOSE](https://www.trainose.gr) rai
 [![npm version](https://img.shields.io/npm/v/train-ose.svg)](https://www.npmjs.com/package/train-ose)
 [![Build Status](https://travis-ci.org/juliuste/train-ose.svg?branch=master)](https://travis-ci.org/juliuste/train-ose)
 [![Greenkeeper badge](https://badges.greenkeeper.io/juliuste/train-ose.svg)](https://greenkeeper.io/)
-[![dependency status](https://img.shields.io/david/juliuste/train-ose.svg)](https://david-dm.org/juliuste/train-ose)
 [![license](https://img.shields.io/github/license/juliuste/train-ose.svg?style=flat)](license)
 [![fptf version](https://fptf.badges.juliustens.eu/badge/juliuste/train-ose)](https://fptf.badges.juliustens.eu/link/juliuste/train-ose)
 [![chat on gitter](https://badges.gitter.im/juliuste.svg)](https://gitter.im/juliuste)
