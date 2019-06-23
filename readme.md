@@ -211,38 +211,23 @@ trainOSE.journeys(athens, thessaloniki, { when: new Date('2019-06-27T05:00:00+02
 
 ### `edges()`
 
-All pairs of adjacent stations and their distance (as in *edges* of the greek railway network graph). Returns a `Promise` that resolves in a list of edges.
+All pairs of adjacent stations and their distance (as in *edges* of the greek railway network graph). Returns a `Readable` stream in object mode.
 
 #### Example
 
 ```js
-trainOSE.edges().then(…)
+const edgeStream = trainOSE.edges()
+edgeStream.on('data', item => {
+    console.log(item)
+})
 ```
 
 ```js
-[
-    {
-        "source": "ΑΓΥΑ",
-        "target": "ΚΑΣΛ",
-        "distance": 2.1
-    },
-    {
-        "source": "ΑΓΥΑ",
-        "target": "ΠΑΝΧ",
-        "distance": 1.7
-    },
-    {
-        "source": "ΑΔΕΝ",
-        "target": "ΠΛΤΥ",
-        "distance": 7.53
-    },
-    {
-        "source": "ΑΘΗΝ",
-        "target": "ΠΑΝΓ",
-        "distance": 3.34
-    }
-    // …
-]
+{
+    "source": "ΑΓΥΑ",
+    "target": "ΚΑΣΛ",
+    "distance": 2.1
+}
 ```
 
 ## Contributing
