@@ -6,17 +6,21 @@ const tape = addPromiseSupport(tapeWithoutPromise)
 const validate = require('validate-fptf')()
 const isBoolean = require('lodash/isBoolean')
 const isNumber = require('lodash/isNumber')
-const moment = require('moment-timezone')
+const { DateTime } = require('luxon')
 const fptiTests = require('fpti-tests')
 const getStream = require('get-stream').array
 
 const trainOSE = require('.')
 const pkg = require('./package.json')
 
+const when = DateTime.fromObject({ zone: 'Europe/Athens', weekday: 4 }).plus({ weeks: 1, hours: 5 }).toJSDate() // next thursday, 05:00
+const isStationWithEnglishName = (s, name) => (s.type === 'station' && s.nameEnglish === name)
+
 tape('train-ose fpti tests', async t => {
 	await t.doesNotReject(fptiTests.packageJson(pkg), 'valid package.json')
 	t.doesNotThrow(() => fptiTests.packageExports(trainOSE, ['stations.all', 'journeys']), 'valid module exports')
 	t.doesNotThrow(() => fptiTests.stationsAllFeatures(trainOSE.stations.all.features, []), 'valid stations.all features')
+	t.doesNotThrow(() => fptiTests.journeysFeatures(trainOSE.journeys.features, ['when', 'departureAfter', 'results', 'interval', 'transfers']), 'valid journeys features')
 })
 
 tape('train-ose.stations & train-ose.edges', async t => {
@@ -58,34 +62,79 @@ tape('train-ose.stations & train-ose.edges', async t => {
 	}
 })
 
-tape('train-ose.journeys', async (t) => {
-	const j = await trainOSE.journeys('ΑΘΗΝ', 'ΘΕΣΣ', moment.tz('Europe/Athens').add(3, 'days').startOf('day').toDate())
+tape('train-ose.journeys', async t => {
+	const athens = 'ΑΘΗΝ'
+	const thessaloniki = 'ΘΕΣΣ'
 
-	t.ok(j.length > 0, 'journeys length')
+	const journeys = await trainOSE.journeys(athens, thessaloniki, { when })
+	t.ok(journeys.length >= 3, 'number of journeys')
+	for (let journey of journeys) {
+		t.doesNotThrow(() => validate(journey), 'valid fptf')
+		t.ok(isStationWithEnglishName(journey.legs[0].origin, 'Athens'), 'origin')
+		t.ok(isStationWithEnglishName(journey.legs[journey.legs.length - 1].destination, 'Thessaloniki'), 'destination')
+		t.ok(+new Date(journey.legs[0].departure) >= +when, 'departure')
 
-	for (let journey of j) {
-		validate(journey)
+		for (let leg of journey.legs) {
+			t.ok(leg.mode === 'train', 'leg mode')
+			t.ok(leg.operator.id === 'trainOSE', 'leg operator')
+			t.doesNotThrow(() => validate(leg.line), 'valid fptf')
+			t.ok(leg.line.mode === 'train', 'leg line mode')
+			t.ok(leg.line.operator.id === 'trainOSE', 'leg line operator')
 
-		t.ok(journey.legs[0].origin.id === 'ΑΘΗΝ', 'origin id')
-		t.ok(journey.legs[journey.legs.length - 1].destination.id === 'ΘΕΣΣ', 'destination id')
-
-		for (let l of journey.legs) {
-			t.ok(l.operator === 'trainOSE', 'leg operator')
-			t.ok(l.line.operator === 'trainOSE', 'leg line operator')
-			t.ok(l.tariffs.length > 0, 'leg tariffs')
-			t.ok(l.price.amount > 0, 'leg price amount')
-			t.ok(l.price.currency === 'EUR', 'leg price currency')
-			t.ok(l.price.reduced === false, 'leg price reduced')
-			t.ok(isNumber(l.price.available), 'leg price available')
-			t.ok(l.price.class === 'B', 'leg price class')
+			t.ok(leg.tariffs.length > 0, 'leg tariffs')
+			t.ok(leg.price.amount > 0, 'leg price amount')
+			t.ok(leg.price.currency === 'EUR', 'leg price currency')
+			t.ok(leg.price.reduced === false, 'leg price reduced')
+			t.ok(Number.isInteger(leg.price.available), 'leg price available')
+			t.ok(leg.price.class === 'B', 'leg price class')
 		}
 
-		t.ok(journey.price.amount > 0, 'journey price amount')
-		t.ok(journey.price.currency === 'EUR', 'journey price currency')
+		t.ok(journey.price.amount > 0, 'price amount')
+		t.ok(journey.price.currency === 'EUR', 'price currency')
 		t.ok(journey.price.reduced === false, 'journey price reduced')
-		t.ok(isNumber(journey.price.available), 'journey price available')
+		t.ok(Number.isInteger(journey.price.available), 'journey price available')
 		t.ok(journey.price.class === 'B', 'journey price class')
 	}
+})
 
-	t.end()
+tape('train-ose.journeys opt.results, opt.departureAfter', async t => {
+	const athens = 'ΑΘΗΝ'
+	const thessaloniki = 'ΘΕΣΣ'
+
+	const journeys = await trainOSE.journeys(athens, thessaloniki, { departureAfter: when, results: 2 })
+	t.ok(journeys.length === 2, 'number of journeys')
+	for (let journey of journeys) t.doesNotThrow(() => validate(journey), 'valid fptf')
+})
+
+tape('train-ose.journeys opt.transfers', async t => {
+	const athens = 'ΑΘΗΝ'
+	const drama = 'ΔΡΑΜ'
+
+	const journeysWithoutTransfer = await trainOSE.journeys(athens, drama, { when, transfers: 0 })
+	t.ok(journeysWithoutTransfer.length === 0, 'number of journeys')
+
+	const journeysWithTransfer = await trainOSE.journeys(athens, drama, { when, transfers: 2 })
+	t.ok(journeysWithTransfer.length > 0, 'number of journeys')
+	for (let journey of journeysWithTransfer) {
+		t.doesNotThrow(() => validate(journey), 'valid fptf')
+		t.ok(journey.legs.length === 2, 'number of legs')
+	}
+})
+
+tape('korail.journeys opt.interval', async t => {
+	const athens = 'ΑΘΗΝ'
+	const drama = 'ΔΡΑΜ'
+	const dayAfterWhen = DateTime.fromJSDate(when, { zone: 'Europe/Athens' }).plus({ days: 1 }).toJSDate()
+
+	const journeysWithoutInterval = await trainOSE.journeys(drama, athens, { when })
+	for (let journey of journeysWithoutInterval) t.doesNotThrow(() => validate(journey), 'valid fptf')
+	t.ok(journeysWithoutInterval.length > 0, 'precondition')
+	const journeysWithoutIntervalDayAfterWhen = journeysWithoutInterval.filter(journey => +new Date(journey.legs[0].departure) >= +dayAfterWhen)
+	t.ok(journeysWithoutIntervalDayAfterWhen.length === 0, 'number of journeys')
+
+	const journeysWithInterval = await trainOSE.journeys(drama, athens, { when, interval: 30 * 60 }) // journeys for the next 30h
+	for (let journey of journeysWithInterval) t.doesNotThrow(() => validate(journey), 'valid fptf')
+	t.ok(journeysWithInterval.length > 0, 'precondition')
+	const journeysWithIntervalDayAfterWhen = journeysWithInterval.filter(journey => +new Date(journey.legs[0].departure) >= +dayAfterWhen)
+	t.ok(journeysWithIntervalDayAfterWhen.length > 0, 'number of journeys')
 })

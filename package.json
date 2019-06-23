@@ -31,12 +31,13 @@
 	},
 	"dependencies": {
 		"country-tz": "^1.0.0",
+		"fpti-util": "^0.1.0",
 		"get-stream": "^5.1.0",
 		"got": "^9.6.0",
 		"i18n-iso-countries": "^4.1.1",
 		"into-stream": "^5.1.0",
 		"lodash": "^4.17.11",
-		"moment-timezone": "^0.5.25"
+		"luxon": "^1.16.0"
 	},
 	"devDependencies": {
 		"depcheck": "^0.8.1",
