@@ -33,7 +33,7 @@
 		"country-tz": "^1.0.0",
 		"fpti-util": "^0.1.0",
 		"get-stream": "^5.1.0",
-		"got": "^9.6.0",
+		"got": "^10.2.1",
 		"i18n-iso-countries": "^4.1.1",
 		"into-stream": "^5.1.0",
 		"lodash": "^4.17.11",
